@@ -2,7 +2,7 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-Implementation of the driver, which manages communications
+The implementation of the driver, which manages communications
              between user clients and the audio device.
 */
 
@@ -56,6 +56,7 @@ void SimpleAudioDriver::free()
 	super::free();
 }
 
+/// - Tag: StartImpl
 kern_return_t SimpleAudioDriver::Start_Impl(IOService* in_provider)
 {
 	bool success = false;
@@ -67,11 +68,11 @@ kern_return_t SimpleAudioDriver::Start_Impl(IOService* in_provider)
 	kern_return_t error = Start(in_provider, SUPERDISPATCH);
 	FailIfError(error, , Failure, "Failed to start Super");
 	
-    // Get the service's default dispatch queue from the driver object.
+	// Get the service's default dispatch queue from the driver object.
 	ivars->m_work_queue = GetWorkQueue();
 	FailIfError(ivars->m_work_queue.get() == nullptr, error = kIOReturnInvalid, Failure, "failed to get default work queue");
 		
-    // Allocate and configure audio devices as necessary.
+	// Allocate and configure audio devices as necessary.
 	ivars->m_simple_audio_device = OSSharedPtr(OSTypeAlloc(SimpleAudioDevice), OSNoRetain);
 	FailIfNULL(ivars->m_simple_audio_device.get(), error = kIOReturnNoMemory, Failure, "Failed to allocate SimpleAudioDevice");
 	
@@ -80,10 +81,10 @@ kern_return_t SimpleAudioDriver::Start_Impl(IOService* in_provider)
 	
 	ivars->m_simple_audio_device->SetName(device_name.get());
 	
-    // Add the device object to the driver.
+	// Add the device object to the driver.
 	AddObject(ivars->m_simple_audio_device.get());
 			
-    // Register the service.
+	// Register the service.
 	error = RegisterService();
 	FailIfError(error, , Failure, "failed to register service!");
 	
@@ -95,17 +96,20 @@ Failure:
 
 kern_return_t	SimpleAudioDriver::Stop_Impl(IOService* in_provider)
 {
+	auto ret = Stop(in_provider, SUPERDISPATCH);
 	ivars->m_work_queue.reset();
 	ivars->m_simple_audio_device.reset();
-	return Stop(in_provider, SUPERDISPATCH);
+	return ret;
 }
 
+
+/// - Tag: NewUserClientImpl
 kern_return_t SimpleAudioDriver::NewUserClient_Impl(uint32_t in_type, IOUserClient** out_user_client)
 {
 	kern_return_t error = kIOReturnSuccess;
 	
-    // Have the super class create the IOUserAudioDriverUserClient object
-    // if the type is kIOUserAudioDriverUserClientType.
+	// Have the superclass create the IOUserAudioDriverUserClient object
+	// if the type is kIOUserAudioDriverUserClientType.
 	if (in_type == kIOUserAudioDriverUserClientType)
 	{
 		error = super::NewUserClient(in_type, out_user_client, SUPERDISPATCH);
@@ -116,7 +120,7 @@ kern_return_t SimpleAudioDriver::NewUserClient_Impl(uint32_t in_type, IOUserClie
 	{
 		IOService* user_client_service = nullptr;
 		error = Create(this, "SimpleAudioDriverUserClientProperties", &user_client_service);
-		FailIfError(error, , Failure, "failed to create the SimpleAudioDriver user-client");
+		FailIfError(error, , Failure, "failed to create the SimpleAudioDriver user client");
 		*out_user_client = OSDynamicCast(IOUserClient, user_client_service);
 	}
 	
@@ -134,13 +138,13 @@ kern_return_t SimpleAudioDriver::StartDevice(IOUserAudioObjectID in_object_id, I
 	
 	__block kern_return_t ret;
 	ivars->m_work_queue->DispatchSync(^(){
-        // Tell the super class to start the device and the update timer
-        // to generate timestamps.
+		// Tell the superclass to start the device and the update the timer
+		// to generate timestamps.
 		ret = super::StartDevice(in_object_id, in_flags);
 	});
 	if (ret == kIOReturnSuccess)
 	{
-        // Enable any custom driver related things here.
+		// Enable any custom driver-related things here.
 	}
 	return ret;
 }
@@ -153,7 +157,7 @@ kern_return_t SimpleAudioDriver::StopDevice(IOUserAudioObjectID in_object_id, IO
 		return kIOReturnBadArgument;
 	}
 	
-    // Tell the super class to stop device and stop timestamps.
+	// Tell the superclass to stop device and stop timestamps.
 	__block kern_return_t ret;
 	ivars->m_work_queue->DispatchSync(^(){
 		ret = super::StopDevice(in_object_id, in_flags);
@@ -161,7 +165,7 @@ kern_return_t SimpleAudioDriver::StopDevice(IOUserAudioObjectID in_object_id, IO
 	
 	if (ret == kIOReturnSuccess)
 	{
-        // Disable any custom driver related things here.
+    	// Disable any custom driver-related things here.
 	}
 	return ret;
 }
@@ -175,6 +179,7 @@ kern_return_t SimpleAudioDriver::HandleToggleDataSource()
 	return ret;
 }
 
+/// - Tag: HandleTestConfigChange
 kern_return_t SimpleAudioDriver::HandleTestConfigChange()
 {
 	auto change_info = OSSharedPtr(OSString::withCString("Toggle Sample Rate"), OSNoRetain);

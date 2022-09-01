@@ -34,8 +34,8 @@ public:
 	virtual void				free() override LOCALONLY;
 	
 public:
-	// Override these methods in derived class to do custom things with
-    // transport hardware as necessary.
+	// Override these methods in the derived class to do custom things with
+	// transport hardware as necessary.
 	virtual kern_return_t		StartIO(IOUserAudioStartStopFlags in_flags) final LOCALONLY;
 	
 	virtual kern_return_t		StopIO(IOUserAudioStartStopFlags in_flags) final LOCALONLY;
@@ -62,11 +62,7 @@ private:
 	virtual void				ZtsTimerOccurred(OSAction* action,
 												 uint64_t time) TYPE(IOTimerDispatchSource::TimerOccurred);
 	
-	void						GenerateToneForInput(size_t in_frame_size) LOCALONLY;
-	
-	virtual void				ToneTimerOccurred(OSAction* action,
-												  uint64_t time) TYPE(IOTimerDispatchSource::TimerOccurred);
-
+	void						GenerateToneForInput(double in_tone_freq, size_t in_sample_time, size_t in_frame_size) LOCALONLY;
 };
 
 #endif /* SimpleAudioDevice_h */

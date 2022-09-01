@@ -2,7 +2,7 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-Implementation of the user client, which connects to and
+The implementation of the user client, which connects to and
             exercises the driver.
 */
 

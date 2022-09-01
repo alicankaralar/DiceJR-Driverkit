@@ -2,7 +2,7 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-Headers for the driver, which manages communications between
+The headers for the driver, which manages communications between
             user clients and the audio device.
 */
 

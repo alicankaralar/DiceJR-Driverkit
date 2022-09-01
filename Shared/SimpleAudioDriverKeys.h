@@ -19,10 +19,10 @@ The constants for identifiers that both the user client and the driver use.
 
 enum SimpleAudioDriverExternalMethod
 {
-    SimpleAudioDriverExternalMethod_Open, // No arguments.
-    SimpleAudioDriverExternalMethod_Close, // No arguments.
-    SimpleAudioDriverExternalMethod_ToggleDataSource, // No argument. This switches between data source selection.
-    SimpleAudioDriverExternalMethod_TestConfigChange // No arguments. This switches between sample rates and exercises the config change mechanism.
+	SimpleAudioDriverExternalMethod_Open, // No arguments.
+	SimpleAudioDriverExternalMethod_Close, // No arguments.
+	SimpleAudioDriverExternalMethod_ToggleDataSource, // No arguments. This switches between data source selection.
+	SimpleAudioDriverExternalMethod_TestConfigChange, // No arguments. This switches between sample rates and excercise config change mechanism.
 };
 
 #endif /* SimpleAudioDriverKeys_h */

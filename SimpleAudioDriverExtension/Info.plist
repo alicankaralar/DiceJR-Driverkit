@@ -2,22 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>SimpleAudioDriver</key>
@@ -32,10 +16,6 @@
 			<string>IOUserResources</string>
 			<key>IOResourceMatch</key>
 			<string>IOKit</string>
-			<key>IOUserClass</key>
-			<string>SimpleAudioDriver</string>
-			<key>IOUserServerName</key>
-			<string>com.example.apple-samplecode.SimpleAudioDriver</string>
 			<key>IOUserAudioDriverUserClientProperties</key>
 			<dict>
 				<key>IOClass</key>
@@ -43,6 +23,10 @@
 				<key>IOUserClass</key>
 				<string>IOUserAudioDriverUserClient</string>
 			</dict>
+			<key>IOUserClass</key>
+			<string>SimpleAudioDriver</string>
+			<key>IOUserServerName</key>
+			<string>com.example.apple-samplecode.SimpleAudio.Driver</string>
 			<key>SimpleAudioDriverUserClientProperties</key>
 			<dict>
 				<key>IOClass</key>
@@ -52,7 +36,5 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>OSBundleUsageDescription</key>
-	<string></string>
 </dict>
 </plist>
