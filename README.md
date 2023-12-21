@@ -63,7 +63,7 @@ The sample implements a dynamic environment that can support multiple audio devi
 * A mono channel of audio I/O in 16-bit, linear PCM format
 * An example of a string-based custom property
 
-AudioDriverKit is available in macOS, and in iPadOS 16 and later when running on an M1 device. This sample project supports both platforms.
+AudioDriverKit is available in macOS, and in iPadOS 16 and later when running on an iPad device with an M-series chip. This sample project supports both platforms.
 
 The sample app connects to the audio driver extension through a custom user client connection.  The custom user client shows an example of how to change the data-source selector value or the sample rate directly on the audio driver extension. In macOS, the sample app also provides the installer for the driver. In iPadOS, you install the driver by enabling it in Settings.
 
@@ -99,7 +99,7 @@ To uninstall the driver, delete the sample app, which also stops and removes the
 
 ## Run the sample in iPadOS
 
-To run the sample app in iPadOS, connect an iPad device with an M1 chip to your Mac. Use the scheme selector to select the SimpleAudio (iOS) scheme and the name of your iPad as the destination. Run the app directly from Xcode to launch it on your iPad.
+To run the sample app in iPadOS, connect an iPad device with an M-series chip to your Mac. Use the scheme selector to select the SimpleAudio (iOS) scheme and the name of your iPad as the destination. Run the app directly from Xcode to launch it on your iPad.
 
 In iPadOS, the SimpleAudio app doesn't show the Driver Manager section because the app isn't responsible for installing the driver like it is in macOS. Instead, open the Settings app, navigate to Privacy & Security > Drivers, and enable the driver there.
 
