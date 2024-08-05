@@ -1,52 +1,6 @@
 # Creating an audio device driver
 Implement a configurable audio input source as a driver extension that runs in user space in macOS and iPadOS.
 
-[link_article_PreparingYourAppForDistribution]:https://developer.apple.com/documentation/xcode/preparing-your-app-for-distribution
-[link_article_RequestingEntitlmentsForDriverKitDevelopment]:https://developer.apple.com/documentation/driverkit/requesting_entitlements_for_driverkit_development
-[link_entitlement_com.apple.developer.driverkit]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_driverkit?language=objc
-[link_entitlement_com.apple.developer.system-extension.install]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_system-extension_install?language=objc
-[link_entitlement_com.apple.developer.driverkit.communicates-with-drivers]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_driverkit_communicates-with-drivers?language=objc
-[link_entitlement_com.apple.developer.driverkit.userclient-access]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_driverkit_userclient-access?language=objc
-[link_article_Debugging_and_testing_system_extensions]:https://developer.apple.com/documentation/driverkit/debugging_and_testing_system_extensions
-[link_symbol_IOUserAudioDriver]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodriver
-[link_symbol_IOUserAudioDevice]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice
-[link_symbol_IOUserAudioObject]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioobject
-[link_symbol_OSAction]:https://developer.apple.com/documentation/driverkit/osaction
-[link_symbol_IOService_Start]:https://developer.apple.com/documentation/kernel/ioservice/3180710-start
-[link_symbol_IOService_RegisterService]:https://developer.apple.com/documentation/kernel/ioservice/3180701-registerservice
-[link_symbol_IOService_NewUserClient]:https://developer.apple.com/documentation/driverkit/ioservice/3325581-newuserclient
-[link_symbol_IOUserAudioStream]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiostream
-[link_symbol_IOUserAudioControl]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiocontrol
-[link_symbol_IOUserAudioLevelControl]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiolevelcontrol
-[link_collection_AudioToolbox]:https://developer.apple.com/documentation/audiotoolbox
-[link_symbol_AUAudioUnit]:https://developer.apple.com/documentation/audiotoolbox/auaudiounit
-[link_symbol_AudioUnitScope]:https://developer.apple.com/documentation/audiotoolbox/audiounitscope
-[link_symbol_AudioUnitElement]:https://developer.apple.com/documentation/audiotoolbox/audiounitelement
-[link_symbol_IOUserAudioObjectPropertyElementMain]:https://developer.apple.com/documentation/audiodriverkit/audiodriverkit_iouseraudioobjectpropertyelementmain
-[link_symbol_IOUserAudioObjectPropertyScope_Input]:https://developer.apple.com/documentation/audiodriverkit/audiodriverkit_iouseraudioobjectpropertyscope/audiodriverkit_input
-[link_symbol_IOUserAudioDevice_StartIO]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/3758048-startio
-[link_symbol_IOUserAudioStream_GetIOMemoryDescriptor]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiostream/3791761-getiomemorydescriptor
-[link_symbol_IOMemoryMap]:https://developer.apple.com/documentation/kernel/iomemorymap
-[link_symbol_IOMemoryDescriptor_CreateMapping]:https://developer.apple.com/documentation/driverkit/iomemorydescriptor/3180638-createmapping
-[link_symbol_IOUserAudioClockDevice]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice
-[link_symbol_IOUserAudioClockDevice_UpdateCurrentZeroTimestamp]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/3758000-updatecurrentzerotimestamp
-[link_symbol_IOUserAudioClockDevice_GetCurrentZeroTimestamp]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/3757972-getcurrentzerotimestamp
-[link_symbol_IOTimerDispatchSource]:https://developer.apple.com/documentation/driverkit/iotimerdispatchsource
-[link_symbol_mach_absolute_time]:https://developer.apple.com/documentation/kernel/1462446-mach_absolute_time
-[link_symbol_IOUserAudioIOOperationBeginRead]:https://developer.apple.com/documentation/audiodriverkit/audiodriverkit_iouseraudioiooperationbeginread
-[link_symbol_IOUserAudioDevice_SetIOOperationHandler]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/3892852-setiooperationhandler
-[link_symbol_IOUserAudioClockDevice_RequestDeviceConfigurationChange]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/3783492-requestdeviceconfigurationchange
-[link_symbol_IOUserAudioDevice_StopIO]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/3758049-stopio
-[link_symbol_IOUserAudioClockDevice_PerformDeviceConfigurationChange]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/3757985-performdeviceconfigurationchange
-[link_symbol_IOUserAudioClockDevice_AbortDeviceConfigurationChange]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/3757962-abortdeviceconfigurationchange
-[link_symbol_IOUserAudioClockDevice_SetSampleRate]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/3757995-setsamplerate
-[link_sumbol_IOUserAudioStream_DeviceSampleRateChanged]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiostream/3783493-devicesampleratechanged
-
-[link_symbol_IOService]:https://developer.apple.com/documentation/driverkit/ioservice
-
-IOUserAudioDevice
-IOService
-
 ## Overview
 
 - Note: This sample code project is associated with WWDC21 session [Create audio drivers with DriverKit](https://developer.apple.com/wwdc21/10190/). This version updates the sample to run in iPadOS, as discussed in WWDC22 session [Bring your driver to iPad with DriverKit](https://developer.apple.com/wwdc22/110373/).
@@ -559,3 +513,45 @@ kern_return_t SimpleAudioDevice::PerformDeviceConfigurationChange(uint64_t chang
 
 When this method returns, the configuration change is complete, and the system resumes I/O with the device.
 
+[link_article_PreparingYourAppForDistribution]:https://developer.apple.com/documentation/xcode/preparing-your-app-for-distribution
+[link_article_RequestingEntitlmentsForDriverKitDevelopment]:https://developer.apple.com/documentation/driverkit/requesting_entitlements_for_driverkit_development
+[link_entitlement_com.apple.developer.driverkit]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_driverkit?language=objc
+[link_entitlement_com.apple.developer.system-extension.install]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_system-extension_install?language=objc
+[link_entitlement_com.apple.developer.driverkit.communicates-with-drivers]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_driverkit_communicates-with-drivers?language=objc
+[link_entitlement_com.apple.developer.driverkit.userclient-access]:https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_driverkit_userclient-access?language=objc
+[link_article_Debugging_and_testing_system_extensions]:https://developer.apple.com/documentation/driverkit/debugging_and_testing_system_extensions
+[link_symbol_IOUserAudioDriver]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodriver
+[link_symbol_IOUserAudioDevice]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice
+[link_symbol_IOUserAudioObject]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioobject
+[link_symbol_OSAction]:https://developer.apple.com/documentation/driverkit/osaction
+[link_symbol_IOService_Start]:https://developer.apple.com/documentation/kernel/ioservice/3180710-start
+[link_symbol_IOService_RegisterService]:https://developer.apple.com/documentation/kernel/ioservice/3180701-registerservice
+[link_symbol_IOService_NewUserClient]:https://developer.apple.com/documentation/driverkit/ioservice/3325581-newuserclient
+[link_symbol_IOUserAudioStream]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiostream
+[link_symbol_IOUserAudioControl]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiocontrol
+[link_symbol_IOUserAudioLevelControl]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiolevelcontrol
+[link_collection_AudioToolbox]:https://developer.apple.com/documentation/audiotoolbox
+[link_symbol_AUAudioUnit]:https://developer.apple.com/documentation/audiotoolbox/auaudiounit
+[link_symbol_AudioUnitScope]:https://developer.apple.com/documentation/audiotoolbox/audiounitscope
+[link_symbol_AudioUnitElement]:https://developer.apple.com/documentation/audiotoolbox/audiounitelement
+[link_symbol_IOUserAudioObjectPropertyElementMain]:audiodriverkit/iouseraudiodriver
+[link_symbol_IOUserAudioObjectPropertyScope_Input]:https://developer.apple.com/documentation/audiodriverkit/audiodriverkit_iouseraudioobjectpropertyscope/audiodriverkit_input
+[link_symbol_IOUserAudioDevice_StartIO]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/startio
+[link_symbol_IOUserAudioStream_GetIOMemoryDescriptor]:https://developer.apple.com/documentation/https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/startio
+[link_symbol_IOMemoryMap]:https://developer.apple.com/documentation/kernel/iomemorymap
+[link_symbol_IOMemoryDescriptor_CreateMapping]:https://developer.apple.com/documentation/driverkit/iomemorydescriptor/createmapping
+[link_symbol_IOUserAudioClockDevice]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice
+[link_symbol_IOUserAudioClockDevice_UpdateCurrentZeroTimestamp]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/updatecurrentzerotimestamp
+[link_symbol_IOUserAudioClockDevice_GetCurrentZeroTimestamp]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/getcurrentzerotimestamp
+[link_symbol_IOTimerDispatchSource]:https://developer.apple.com/documentation/driverkit/iotimerdispatchsource
+[link_symbol_mach_absolute_time]:https://developer.apple.com/documentation/kernel/1462446-mach_absolute_time
+[link_symbol_IOUserAudioIOOperationBeginRead]:https://developer.apple.com/documentation/audiodriverkit/audiodriverkit_iouseraudioiooperationbeginread
+[link_symbol_IOUserAudioDevice_SetIOOperationHandler]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/setiooperationhandler
+[link_symbol_IOUserAudioClockDevice_RequestDeviceConfigurationChange]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/requestdeviceconfigurationchange
+[link_symbol_IOUserAudioDevice_StopIO]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiodevice/stopio
+[link_symbol_IOUserAudioClockDevice_PerformDeviceConfigurationChange]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/performdeviceconfigurationchange
+[link_symbol_IOUserAudioClockDevice_AbortDeviceConfigurationChange]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/abortdeviceconfigurationchange
+[link_symbol_IOUserAudioClockDevice_SetSampleRate]:https://developer.apple.com/documentation/audiodriverkit/iouseraudioclockdevice/setsamplerate
+[link_sumbol_IOUserAudioStream_DeviceSampleRateChanged]:https://developer.apple.com/documentation/audiodriverkit/iouseraudiostream/devicesampleratechanged
+
+[link_symbol_IOService]:https://developer.apple.com/documentation/driverkit/ioservice
